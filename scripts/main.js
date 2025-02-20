@@ -2,8 +2,8 @@ import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";  // Adjust t
 
 class Game {
     constructor() {
-        this.cookies = 0;
-        this.cookiesPS = 0;
+        this.energy = 0;
+        this.energyPS = 0;
         this.autoClickers = autoClickers;
 
         // Ensure AutoClicker is used directly to avoid linting warning
@@ -14,10 +14,10 @@ class Game {
 
     init() {
         // Start auto-clickers loop
-        setInterval(() => this.generateCookies(), 1000);
+        setInterval(() => this.generateEnergy(), 1000);
 
-        // Attach click event to cookie
-        document.getElementById('cookie').onclick = () => this.clickCookie();
+        // Attach click event to energy
+        document.getElementById('energy').onclick = () => this.clickEnergy();
 
         // Attach click event to buttons
         this.autoClickers.forEach(clicker => {
@@ -33,19 +33,19 @@ class Game {
         this.updateUI();
     }
 
-    clickCookie() {
-        this.cookies++;
+    clickEnergy() {
+        this.energy++;
         this.updateUI();
     }
 
-    generateCookies() {
-        this.cookies += this.cookiesPS;
+    generateEnergy() {
+        this.energy += this.energyPS;
         this.updateUI();
     }
 
     updateUI() {
-        document.getElementById('cookieCount').innerText = this.cookies;
-        document.getElementById('cookiePS').innerText = this.cookiesPS.toFixed(1);
+        document.getElementById('energyCount').innerText = this.energy;
+        document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
 
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
