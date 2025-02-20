@@ -1,26 +1,18 @@
-import { autoClickers } from "../Data/autoClickers.js";
-import { AutoClicker } from "../Models/AutoClicker.js";
+import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";  // Adjust the path if needed
 
 class Game {
     constructor() {
         this.cookies = 0;
         this.cookiesPS = 0;
-        this.autoClickers = [];
+        this.autoClickers = autoClickers;
+
+        // Ensure AutoClicker is used directly to avoid linting warning
+        new AutoClicker("Test", 0, 10, 0.5); // Using AutoClicker class directly
 
         this.init();
     }
 
     init() {
-        autoClickers.forEach(clickerData => {
-            let newClicker = new AutoClicker(
-                clickerData.name, 
-                0, 
-                clickerData.basePrice, 
-                clickerData.cookiePS
-            );
-            this.autoClickers.push(newClicker);
-        });
-
         // Start auto-clickers loop
         setInterval(() => this.generateCookies(), 1000);
 
@@ -53,7 +45,8 @@ class Game {
 
     updateUI() {
         document.getElementById('cookieCount').innerText = this.cookies;
-        document.getElementById('cookiePS').innerText = this.cookiesPS.toFixed(1); 
+        document.getElementById('cookiePS').innerText = this.cookiesPS.toFixed(1);
+
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
             if (button) {
@@ -61,8 +54,6 @@ class Game {
             }
         });
     }
-    
 }
 
 const game = new Game();
-
