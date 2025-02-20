@@ -1,10 +1,14 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #703f1e;
-    color: rgb(250, 27, 27);
     text-align: center;
-    margin: 0;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    background-size: 500% 500%;
+    animation: gradientShift 10s ease infinite;
 }
 
 h1, h2, h3 {
@@ -66,5 +70,16 @@ button:active {
 @media (max-width: 600px) {
     #autoClickerList {
         flex-direction: column;
+    }
+}
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
