@@ -3,3 +3,4 @@ export const autoClickers = [
     { name: "Grandma", basePrice: 50, cookiePS: 5 },
     { name: "Farm", basePrice: 500, cookiePS: 50 }
 ];
+//lol
