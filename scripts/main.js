@@ -2,46 +2,29 @@ import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";  // Adjust t
 
 class Game {
     constructor() {
-<<<<<<< HEAD
-        this.energy = 0;
-        this.energyPS = 0;
-        this.autoClickers = autoClickers;
-
-        // Ensure AutoClicker is used directly to avoid linting warning
-        new AutoClicker("Test", 0, 10, 0.5); // Using AutoClicker class directly
-=======
         this.energy_score = 0;
         this.energyPS = 0;
         this.autoClickers = [];
->>>>>>> origin/main
 
         this.init();
     }
 
     init() {
-<<<<<<< HEAD
-        // Start auto-clickers loop
-        setInterval(() => this.generateEnergy(), 1000);
-
-        // Attach click event to energy
-        document.getElementById('energy').onclick = () => this.clickEnergy();
-=======
         autoClickers.forEach(clickerData => {
             let newClicker = new AutoClicker(
                 clickerData.name,
                 0,
                 clickerData.basePrice,
-                clickerData.cookiePS
+                clickerData.energyPSPS
             );
             this.autoClickers.push(newClicker);
         });
 
 
-        setInterval(() => this.generateCookies(), 1000);
+        setInterval(() => this.generateEnergy(), 1000);
 
->>>>>>> origin/main
 
-        document.getElementById('energy').onclick = () => this.clickCookie();
+        document.getElementById('energy').onclick = () => this.clickEnergy();
 
 
         this.autoClickers.forEach(clicker => {
@@ -57,35 +40,19 @@ class Game {
         this.updateUI();
     }
 
-<<<<<<< HEAD
     clickEnergy() {
-        this.energy++;
-        this.updateUI();
-    }
-
-    generateEnergy() {
-        this.energy += this.energyPS;
-=======
-    clickCookie() {
         this.energy_score++;
         this.updateUI();
     }
 
-    generateCookies() {
+    generateEnergy() {
         this.energy_score += this.energyPS;
->>>>>>> origin/main
         this.updateUI();
     }
 
     updateUI() {
-<<<<<<< HEAD
-        document.getElementById('energyCount').innerText = this.energy;
-        document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
-
-=======
         document.getElementById('energyCount').innerText = this.energy_score;
         document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
->>>>>>> origin/main
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
             if (button) {
