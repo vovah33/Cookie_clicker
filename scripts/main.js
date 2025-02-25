@@ -74,7 +74,7 @@ class Effects {
 
     createFloatEnergy(event) {
         let floatEnergy = document.createElement("span");
-        floatEnergy.textContent = "🍪";
+        floatEnergy.textContent = "⚡";
         floatEnergy.classList.add("energy-float");
         document.body.appendChild(floatEnergy);
 
