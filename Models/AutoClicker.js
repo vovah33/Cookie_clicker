@@ -27,12 +27,12 @@ export class AutoClicker {
 
 
 export const autoClickers = [
-    new AutoClicker("Redbull", 0, 10, 0.5),
+    new AutoClicker("Redbull", 0, 10, 1),
     new AutoClicker("Bullit", 0, 50, 5),
-    new AutoClicker("Slammer", 0, 500, 50),
-    new AutoClicker("Cursor", 0, 1000, 100),
-    new AutoClicker("Grandma", 0, 2500, 250),
-    new AutoClicker("Farm", 0, 500, 50),
-    new AutoClicker("Grandma", 0, 50, 5),
-    new AutoClicker("Farm", 0, 500, 50)
+    new AutoClicker("Slammer", 0, 200, 50),
+    new AutoClicker("Monster", 0, 500, 100),
+    new AutoClicker("Prime", 0, 1000, 250),
+    new AutoClicker("Qush", 0, 2500, 500),
+    new AutoClicker("Vital 4U", 0, 5000, 1000),
+    new AutoClicker("AA Drink", 0, 10000, 2500)
 ];
