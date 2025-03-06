@@ -31,8 +31,8 @@ export const autoClickers = [
     new AutoClicker("Bullit", 0, 50, 5),
     new AutoClicker("Slammer", 0, 200, 50),
     new AutoClicker("Monster", 0, 500, 100),
-    new AutoClicker("Prime", 0, 1000, 250),
+    new AutoClicker("RockStar", 0, 1000, 250),
     new AutoClicker("Qush", 0, 2500, 500),
     new AutoClicker("Vital 4U", 0, 5000, 1000),
-    new AutoClicker("AA Drink", 0, 10000, 2500)
+    new AutoClicker("Viking", 0, 10000, 2500)
 ];

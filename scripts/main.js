@@ -9,7 +9,7 @@ class Game {
         this.init();
     }
 
-    init() {
+    init() {/// - ?
         autoClickers.forEach(clickerData => {
             let newClicker = new AutoClicker(
                 clickerData.name,
