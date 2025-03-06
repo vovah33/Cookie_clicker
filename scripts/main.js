@@ -1,4 +1,4 @@
-import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";  // Adjust the path if needed
+import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";
 
 class Game {
     constructor() {
