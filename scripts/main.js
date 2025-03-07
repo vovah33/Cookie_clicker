@@ -58,18 +58,20 @@ class Game {
             if (button) {
                 button.innerText = `Buy ${clicker.name} (Cost: ${clicker.currentPrice})`;
             }
-            this.createFloatEnergy(event);
-
         });
     }
 }
 class Effects {
     constructor() {
+        this.energyCount = 0;
         this.addEventListeners();
     }
 
     addEventListeners() {
-        document.addEventListener("click", (event) => this.createFloatEnergy(event));
+        const energyButton = document.getElementById('energy');
+        if (energyButton) {
+            energyButton.addEventListener("click", (event) => this.createFloatEnergy(event));
+        }
     }
 
     createFloatEnergy(event) {
@@ -82,11 +84,31 @@ class Effects {
         floatEnergy.style.top = `${event.pageY - 25}px`;
 
         setTimeout(() => floatEnergy.remove(), 1000);
+
+        this.updateEnergyCount();
+    }
+
+    updateEnergyCount() {
+        this.energyCount++;
+        const energyCountDisplay = document.getElementById('energyCount');
+        if (energyCountDisplay) {
+            energyCountDisplay.textContent = this.energyCount;
+        }
     }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const effects = new Effects();
+    new Effects();
+});
+
+if (!sessionStorage.getItem("visited")) {
+    sessionStorage.setItem("visited", "true");
+    localStorage.clear();
+}
+
+window.addEventListener("beforeunload", () => {
+    sessionStorage.removeItem("visited");
+    localStorage.clear();
 });
 
 const game = new Game();

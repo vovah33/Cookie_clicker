@@ -1,23 +1,24 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
-    display: flex;
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 95vh;
+    height: 100vh;
     background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-    background-size: 500% 500%;
+    background-size: 900% 900%;
     animation: gradientShift 10s ease infinite;
+    overflow: hidden;
 }
 
 h1, h2, h3 {
     color: #ffffff;
+    margin-top: 20px;
 }
 
 #energy {
     cursor: pointer;
-    border-radius: 50%;;
     transition: transform 0.1s ease-in-out;
 }
 
@@ -52,7 +53,6 @@ button:active {
     margin-top: 10px;
 }
 
-/* Upgrades-sectie */
 #upgrades {
     margin-top: 20px;
 }
@@ -65,12 +65,12 @@ button:active {
     border: 2px solid #d2691e;
 }
 
-/* Responsieve opmaak */
 @media (max-width: 600px) {
     #autoClickerList {
         flex-direction: column;
     }
 }
+
 @keyframes gradientShift {
     0% {
         background-position: 0% 50%;
@@ -82,28 +82,28 @@ button:active {
         background-position: 0% 50%;
     }
 }
+
 .energy-float {
     position: absolute;
     font-size: 30px;
-    animation: floatUp 1s ease-out forwards;
+    animation: float 1s ease-out forwards;
     pointer-events: none;
 }
 
-@keyframes floatUp {
+@keyframes float {
     0% {
         opacity: 1;
         transform: translateY(0);
     }
     100% {
         opacity: 0;
-        transform: translateY(-50px);
+        transform: translateY(-30px);
     }
 }
-img
-{
+
+img {
     user-drag: none;
     -webkit-user-drag: none;
-
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
