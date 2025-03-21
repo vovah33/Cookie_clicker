@@ -8,10 +8,9 @@ export class AutoClicker {
         this.priceMultiplier = 1.3;
     }
 
-
     buy(game) {
-        if (game.energy >= this.currentPrice) {
-            game.energy -= this.currentPrice;
+        if (game.energy_score >= this.currentPrice) {
+            game.energy_score -= this.currentPrice;
             this.amount++;
             this.updatePrice();
             game.energyPS += this.energyPS;
@@ -19,17 +18,16 @@ export class AutoClicker {
         }
     }
 
-
     updatePrice() {
         this.currentPrice = Math.floor(this.basePrice * Math.pow(this.priceMultiplier, this.amount));
     }
 
-    copy(){
-
+    copy() {
+        return new AutoClicker(this.name, this.amount, this.basePrice, this.energyPS);
     }
 }
 
-
+// Base list of auto-clickers (only prototypes)
 export const autoClickers = [
     new AutoClicker("Redbull", 0, 10, 1),
     new AutoClicker("Bullit", 0, 50, 5),

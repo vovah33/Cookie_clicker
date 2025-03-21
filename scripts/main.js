@@ -9,23 +9,12 @@ class Game {
         this.init();
     }
 
-    init() {/// - ?
-        autoClickers.forEach(clickerData => {
-            let newClicker = new AutoClicker(
-                clickerData.name,
-                0,
-                clickerData.basePrice,
-                clickerData.energyPSPS
-            );
-            this.autoClickers.push(newClicker);
-        });
-
+    init() {
+        this.autoClickers = autoClickers.map(clicker => clicker.copy());
 
         setInterval(() => this.generateEnergy(), 1000);
 
-
         document.getElementById('energy').onclick = () => this.clickEnergy();
-
 
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
@@ -61,6 +50,7 @@ class Game {
         });
     }
 }
+
 class Effects {
     constructor() {
         this.energyCount = 0;
