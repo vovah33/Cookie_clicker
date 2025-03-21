@@ -2,17 +2,16 @@ import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";
 
 class Game {
     constructor() {
-        this.energy_score = 0;
+        this.energy_score = parseInt(localStorage.getItem('energyCount')) || 0;
         this.energyPS = 0;
         this.autoClickers = [];
-
         this.init();
     }
 
     init() {
         this.autoClickers = autoClickers.map(clicker => clicker.copy());
 
-        setInterval(() => this.generateEnergy(), 1000);
+        setInterval(() => this.generateEnergy(), 100);
 
         document.getElementById('energy').onclick = () => this.clickEnergy();
 
@@ -31,17 +30,25 @@ class Game {
 
     clickEnergy() {
         this.energy_score++;
+        this.updateEnergyCount();
         this.updateUI();
     }
 
     generateEnergy() {
-        this.energy_score += this.energyPS;
+        const increment = this.energyPS / 10;
+        this.energy_score += increment;
+        this.updateEnergyCount();
         this.updateUI();
     }
 
+    updateEnergyCount() {
+        localStorage.setItem('energyCount', this.energy_score.toFixed(1));
+    }
+
     updateUI() {
-        document.getElementById('energyCount').innerText = this.energy_score;
+        document.getElementById('energyCount').innerText = this.energy_score.toFixed(1);
         document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
+
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
             if (button) {
@@ -53,7 +60,6 @@ class Game {
 
 class Effects {
     constructor() {
-        this.energyCount = 0;
         this.addEventListeners();
     }
 
@@ -74,16 +80,6 @@ class Effects {
         floatEnergy.style.top = `${event.pageY - 25}px`;
 
         setTimeout(() => floatEnergy.remove(), 1000);
-
-        this.updateEnergyCount();
-    }
-
-    updateEnergyCount() {
-        this.energyCount++;
-        const energyCountDisplay = document.getElementById('energyCount');
-        if (energyCountDisplay) {
-            energyCountDisplay.textContent = this.energyCount;
-        }
     }
 }
 
@@ -101,4 +97,4 @@ window.addEventListener("beforeunload", () => {
     localStorage.clear();
 });
 
-const game = new Game();
+const gameApp = new Game();
