@@ -23,6 +23,10 @@ export class AutoClicker {
     updatePrice() {
         this.currentPrice = Math.floor(this.basePrice * Math.pow(this.priceMultiplier, this.amount));
     }
+
+    copy(){
+
+    }
 }
 
 
