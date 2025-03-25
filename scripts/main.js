@@ -49,10 +49,28 @@ class Game {
         document.getElementById('energyCount').innerText = this.energy_score.toFixed(1);
         document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
 
+        
+        const imageMap = {
+            Redbull: "Redbull.png",
+            Bullit: "Bullit.png",
+            Slammer: "Slammer.png",
+            Monster: "Monster.png",
+            Rockstar: "Rockstar.png",
+            Qush: "Qush.png",
+            Vital4U: "Vital4U.png",
+            Viking: "Viking.png"
+        };
+
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
             if (button) {
-                button.innerText = `Buy ${clicker.name} (Cost: ${clicker.currentPrice})`;
+                
+                const imageFilename = imageMap[clicker.name] || "default.png";
+                button.innerHTML = `
+                    <img src="assets/images/${imageFilename}" alt="${clicker.name}" class="clicker-image">
+                    <span class="clicker-name">${clicker.name}</span>
+                    <span class="clicker-cost">⚡ ${clicker.currentPrice}</span>
+                `;
             }
         });
     }

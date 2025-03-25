@@ -4,30 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <title>Energy Clicker</title>
 </head>
 <body>
     <h1>Energy Clicker</h1>
-    <h2>Energy: <span id="energyCount"></span></h2>
-    <h2>Energy Per Second: <span id="energyPS"></span></h2>
+    <h2>⚡Energy: <span id="energyCount"></span></h2>
+    <h2>⌚Energy Per Second: <span id="energyPS"></span></h2>
 
     <img id="energy" src="assets/images/EnergyClicker.png" alt="Energy" width="130" draggable="false">
-
+    <h3 class="auto-clickers-title">Auto Clickers</h3>
     <div>
-        <h3>Auto Clickers</h3>
+        
         <div id="autoClickerList">
-            <button id="buyRedbull">Buy Red Bull</button>
-            <button id="buyBullit">Buy Bullit</button>
-            <button id="buySlammer">Buy Slammer</button>
+            <button id="buyRedbull">>Redbull</button>
+            <button id="buyBullit">Bullit</button>
+            <button id="buySlammer">Slammer</button>
+            <button id="buyMonster">Monster</button>
+            <button id="buyRockstar">Rockstar</button>
+            <button id="buyQush">Qush</button>
+            <button id="buyVital4U">Vital 4U</button>
+            <button id="buyViking">Viking</button>
         </div>
     </div>
 
-    <div>
-        <h3>Upgrades</h3>
-        <div>
-
-        </div>
+ <div>
+    <h3>Upgrades</h3>
+    <div id="upgradesList">
+        <button id=""> X (Cost: ⚡ 100)</button>
+        <button id=""> X (Cost: ⚡ 500)</button>
     </div>
+</div>
 
     <script type="module" src="scripts/main.js"></script>
 </body>
