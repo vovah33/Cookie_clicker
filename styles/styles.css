@@ -5,10 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-    background-size: 900% 900%;
-    animation: gradientShift 10s ease infinite;
-    overflow: hidden;
+
 }
 
 h1, h2, h3 {
@@ -167,4 +164,68 @@ img {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+body.dark-mode {
+    background-color: #000000;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+body.gradient-mode {
+    background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+    background-size: 900% 900%;
+    animation: gradientShift 10s ease infinite;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+button.dark-mode, button.gradient-mode {
+    background-color: #333333;
+    color: #ffffff;
+}
+.switch {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
 }

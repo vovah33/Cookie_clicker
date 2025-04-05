@@ -3,7 +3,7 @@ import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";
 class Game {
     constructor() {
         this.energy_score = parseInt(localStorage.getItem('energyCount')) || 0;
-        this.energyPS = 0;
+        this.energyPS = parseFloat(localStorage.getItem('energyPS')) || 0;
         this.autoClickers = [];
         this.init();
     }
@@ -20,6 +20,7 @@ class Game {
             if (button) {
                 button.onclick = () => {
                     clicker.buy(this);
+                    this.updateEnergyPS(); // Update energyPS in localStorage
                     this.updateUI();
                 };
             }
@@ -45,11 +46,14 @@ class Game {
         localStorage.setItem('energyCount', this.energy_score.toFixed(1));
     }
 
+    updateEnergyPS() {
+        localStorage.setItem('energyPS', this.energyPS.toFixed(1));
+    }
+
     updateUI() {
         document.getElementById('energyCount').innerText = this.energy_score.toFixed(1);
         document.getElementById('energyPS').innerText = this.energyPS.toFixed(1);
 
-        
         const imageMap = {
             Redbull: "Redbull.png",
             Bullit: "Bullit.png",
@@ -64,7 +68,6 @@ class Game {
         this.autoClickers.forEach(clicker => {
             let button = document.getElementById(`buy${clicker.name}`);
             if (button) {
-                
                 const imageFilename = imageMap[clicker.name] || "default.png";
                 button.innerHTML = `
                     <img src="assets/images/${imageFilename}" alt="${clicker.name}" class="clicker-image">
@@ -105,14 +108,30 @@ document.addEventListener("DOMContentLoaded", () => {
     new Effects();
 });
 
-if (!sessionStorage.getItem("visited")) {
-    sessionStorage.setItem("visited", "true");
-    localStorage.clear();
-}
-
-window.addEventListener("beforeunload", () => {
-    sessionStorage.removeItem("visited");
-    localStorage.clear();
-});
-
 const gameApp = new Game();
+
+document.addEventListener("DOMContentLoaded", () => {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    if (localStorage.getItem('mode') === 'dark') {
+        body.classList.add('dark-mode');
+        darkModeToggle.checked = true;
+    } else {
+        body.classList.add('gradient-mode');
+        localStorage.setItem('mode', 'gradient');
+        darkModeToggle.checked = false;
+    }
+
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) {
+            body.classList.remove('gradient-mode');
+            body.classList.add('dark-mode');
+            localStorage.setItem('mode', 'dark');
+        } else {
+            body.classList.remove('dark-mode');
+            body.classList.add('gradient-mode');
+            localStorage.setItem('mode', 'gradient');
+        }
+    });
+});
