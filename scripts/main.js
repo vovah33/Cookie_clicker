@@ -5,12 +5,11 @@ class Game {
     constructor() {
         this.energy_score = parseFloat(localStorage.getItem('energyCount')) || 0;
         this.energyPS = parseFloat(localStorage.getItem('energyPS')) || 0;
-        this.autoClickers = [];
+        this.autoClickers =parseFloat(localStorage.getItem('autoClickers')) || 0;
         this.init();
     }
 
     init() {
-        // Load AutoClickers
         this.autoClickers = autoClickers.map(clicker => clicker.copy());
 
         setInterval(() => this.generateEnergy(), 100);
@@ -28,7 +27,7 @@ class Game {
             }
         });
 
-        // Load Upgrades with saved state
+
         this.upgrades = upgrades.map(upgrade => {
             const copy = upgrade.copy();
             const isPurchased = localStorage.getItem(`upgrade_${copy.name}`) === "true";
@@ -59,18 +58,18 @@ class Game {
     }
     
     reset() {
-        // Reset energy and energyPS
+
         this.energy_score = 0;
         this.energyPS = 0;
     
-        // Reset AutoClickers (set prices and amounts back to base values)
+
         this.autoClickers.forEach(clicker => {
             clicker.amount = 0;
             clicker.currentPrice = clicker.basePrice;  // Reset price to the base price
             clicker.save(); // Save the reset values in localStorage
         });
     
-        // Reset Upgrades (mark them as not purchased)
+
         this.upgrades.forEach((upgrade, index) => {
             upgrade.purchased = false;  // Set to false to indicate that it's not purchased
             const button = document.getElementById(`upgrade${index}`);
@@ -82,7 +81,7 @@ class Game {
             localStorage.removeItem(`upgrade_${upgrade.name}`);
         });
     
-        // Clear localStorage for energy, auto-clickers, and upgrades
+
         localStorage.setItem('energyCount', this.energy_score.toFixed(1));
         localStorage.setItem('energyPS', this.energyPS.toFixed(1));
         this.autoClickers.forEach(clicker => {
@@ -90,16 +89,15 @@ class Game {
             localStorage.setItem(`clicker_${clicker.name}_price`, clicker.currentPrice);
         });
     
-        // Reset Upgrades in the UI (even though we updated the text above, ensure buttons are in sync)
+
         this.upgrades.forEach((upgrade, index) => {
             const button = document.getElementById(`upgrade${index}`);
             if (button) {
                 button.disabled = false; // Enable button
-                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`; // Reset the button text
+                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
             }
         });
-    
-        // Update UI to reflect changes
+
         this.updateUI();
     }
     
@@ -181,21 +179,20 @@ class Effects {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const game = new Game(); // ✅ Initialize game after DOM content is loaded
+    const game = new Game();
 
     const resetButton = document.getElementById('resetButton');
     if (resetButton) {
-        // Add event listener to the reset button
         resetButton.addEventListener('click', () => {
-            game.reset(); // Call the reset function on the game instance
+            game.reset();
         });
     }
 
-    new Effects(); // ✅ Initialize effects
+    new Effects();
 });
 
 
-// Dark mode toggle
+
 document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
