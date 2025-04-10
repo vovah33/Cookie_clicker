@@ -150,6 +150,27 @@ class Game {
                 `;
             }
         });
+
+        const upgradeImageMap = {
+            "Stronger Click": "stronger-clicker.png",
+            "Efficient Clickers": "efficient-clickers.png",
+            "Auto Click Boost": "auto click boost.png",
+            "Battery Pack": "battery-pack.png",
+            "Double Tap": "double-tap.png"
+        };
+
+        this.upgrades.forEach((upgrade, index) => {
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                const imageFilename = upgradeImageMap[upgrade.name] || "default-upgrade.png";
+                button.innerHTML = `
+                    <img src="assets/images/${imageFilename}" alt="${upgrade.name}" class="upgrade-image">
+                    <span class="upgrade-name">${upgrade.name}</span>
+                    <span class="upgrade-cost">⚡ ${upgrade.basePrice}</span>
+                `;
+                button.disabled = upgrade.purchased; // Disable button if already purchased
+            }
+        });
     }
 }
 
