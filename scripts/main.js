@@ -1,10 +1,11 @@
 import { AutoClicker, autoClickers } from "/Models/AutoClicker.js";
+import { Upgrade, upgrades } from "/Models/upgrade.js";
 
 class Game {
     constructor() {
-        this.energy_score = parseInt(localStorage.getItem('energyCount')) || 0;
+        this.energy_score = parseFloat(localStorage.getItem('energyCount')) || 0;
         this.energyPS = parseFloat(localStorage.getItem('energyPS')) || 0;
-        this.autoClickers = [];
+        this.autoClickers =parseFloat(localStorage.getItem('autoClickers')) || 0;
         this.init();
     }
 
@@ -20,14 +21,87 @@ class Game {
             if (button) {
                 button.onclick = () => {
                     clicker.buy(this);
-                    this.updateEnergyPS(); // Update energyPS in localStorage
+                    this.updateEnergyPS();
                     this.updateUI();
                 };
             }
         });
 
+
+        this.upgrades = upgrades.map(upgrade => {
+            const copy = upgrade.copy();
+            const isPurchased = localStorage.getItem(`upgrade_${copy.name}`) === "true";
+            if (isPurchased) {
+                copy.purchased = true;
+                copy.applyEffect(this);
+            }
+            return copy;
+        });
+
+        this.upgrades.forEach((upgrade, index) => {
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                if (upgrade.purchased) {
+                    button.disabled = true;
+                    button.innerText = `${upgrade.name} (Purchased)`;
+                } else {
+                    button.onclick = () => {
+                        upgrade.buy(this);
+                        button.disabled = true;
+                        button.innerText = `${upgrade.name} (Purchased)`;
+                    };
+                }
+            }
+        });
+
         this.updateUI();
     }
+    
+    reset() {
+
+        this.energy_score = 0;
+        this.energyPS = 0;
+    
+
+        this.autoClickers.forEach(clicker => {
+            clicker.amount = 0;
+            clicker.currentPrice = clicker.basePrice;  // Reset price to the base price
+            clicker.save(); // Save the reset values in localStorage
+        });
+    
+
+        this.upgrades.forEach((upgrade, index) => {
+            upgrade.purchased = false;  // Set to false to indicate that it's not purchased
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                button.disabled = false; // Enable the button
+                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;  // Reset button text
+            }
+            // Clear upgrade purchase state from localStorage
+            localStorage.removeItem(`upgrade_${upgrade.name}`);
+        });
+    
+
+        localStorage.setItem('energyCount', this.energy_score.toFixed(1));
+        localStorage.setItem('energyPS', this.energyPS.toFixed(1));
+        this.autoClickers.forEach(clicker => {
+            localStorage.setItem(`clicker_${clicker.name}_quantity`, clicker.amount);
+            localStorage.setItem(`clicker_${clicker.name}_price`, clicker.currentPrice);
+        });
+    
+
+        this.upgrades.forEach((upgrade, index) => {
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                button.disabled = false; // Enable button
+                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
+            }
+        });
+
+        this.updateUI();
+    }
+    
+    
 
     clickEnergy() {
         this.energy_score++;
@@ -76,6 +150,27 @@ class Game {
                 `;
             }
         });
+
+        const upgradeImageMap = {
+            "Stronger Click": "stronger-clicker.png",
+            "Efficient Clickers": "efficient-clickers.png",
+            "Auto Click Boost": "auto click boost.png",
+            "Battery Pack": "battery-pack.png",
+            "Double Tap": "double-tap.png"
+        };
+
+        this.upgrades.forEach((upgrade, index) => {
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                const imageFilename = upgradeImageMap[upgrade.name] || "default-upgrade.png";
+                button.innerHTML = `
+                    <img src="assets/images/${imageFilename}" alt="${upgrade.name}" class="upgrade-image">
+                    <span class="upgrade-name">${upgrade.name}</span>
+                    <span class="upgrade-cost">⚡ ${upgrade.basePrice}</span>
+                `;
+                button.disabled = upgrade.purchased; // Disable button if already purchased
+            }
+        });
     }
 }
 
@@ -105,10 +200,19 @@ class Effects {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const game = new Game();
+
+    const resetButton = document.getElementById('resetButton');
+    if (resetButton) {
+        resetButton.addEventListener('click', () => {
+            game.reset();
+        });
+    }
+
     new Effects();
 });
 
-const gameApp = new Game();
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById('darkModeToggle');

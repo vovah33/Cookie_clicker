@@ -15,6 +15,7 @@ export class AutoClicker {
             this.updatePrice();
             game.energyPS += this.energyPS;
             game.updateUI();
+            this.save();  
         }
     }
 
@@ -22,12 +23,22 @@ export class AutoClicker {
         this.currentPrice = Math.floor(this.basePrice * Math.pow(this.priceMultiplier, this.amount));
     }
 
+    save() {
+        
+        localStorage.setItem(`clicker_${this.name}_quantity`, this.amount);
+        localStorage.setItem(`clicker_${this.name}_price`, this.currentPrice);
+    }
+
     copy() {
-        return new AutoClicker(this.name, this.amount, this.basePrice, this.energyPS);
+        const copy = new AutoClicker(this.name, this.amount, this.basePrice, this.energyPS);
+        
+        copy.amount = parseInt(localStorage.getItem(`clicker_${copy.name}_quantity`)) || 0;
+        copy.currentPrice = parseFloat(localStorage.getItem(`clicker_${copy.name}_price`)) || copy.basePrice;
+        return copy;
     }
 }
 
-// Base list of auto-clickers (only prototypes)
+
 export const autoClickers = [
     new AutoClicker("Redbull", 0, 10, 1),
     new AutoClicker("Bullit", 0, 50, 5),

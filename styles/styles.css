@@ -93,6 +93,57 @@ button:active {
     font-weight: 400; 
 }
 
+#upgradesList {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+    position: absolute; 
+    top: 10%; 
+    right: 60px;
+    background-color: #4b0082;
+    padding: 15px; 
+    border-radius: 20px; 
+}
+
+#upgradesList button {
+    background-color: white;
+    color: black; 
+    border: 2px solid #4b0082;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: bold; 
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    text-align: left; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 290px; 
+    transition: transform 0.2s, box-shadow 0.2s;
+    gap: 10px; 
+    font-family: "Poppins", sans-serif; 
+    font-weight: 400; 
+}
+}
+
+#upgradesList button:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+#upgradesList button:active {
+    transform: scale(0.95);
+}
+
+#upgradesList button img {
+    width: 50px; /* Set image width */
+    height: 50px; /* Set image height */
+    border-radius: 5px; /* Optional: rounded corners for images */
+}
+
 #autoClickerList button:hover {
     background-color: #f0f0f0; 
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); 
@@ -228,4 +279,19 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}
+
+#resetButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #f44336; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#resetButton:hover {
+    background-color: #d32f2f; 
 }
