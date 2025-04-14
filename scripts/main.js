@@ -65,19 +65,18 @@ class Game {
 
         this.autoClickers.forEach(clicker => {
             clicker.amount = 0;
-            clicker.currentPrice = clicker.basePrice;  // Reset price to the base price
-            clicker.save(); // Save the reset values in localStorage
+            clicker.currentPrice = clicker.basePrice;
+            clicker.save();
         });
     
 
         this.upgrades.forEach((upgrade, index) => {
-            upgrade.purchased = false;  // Set to false to indicate that it's not purchased
+            upgrade.purchased = false;
             const button = document.getElementById(`upgrade${index}`);
             if (button) {
                 button.disabled = false; // Enable the button
-                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;  // Reset button text
+                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
             }
-            // Clear upgrade purchase state from localStorage
             localStorage.removeItem(`upgrade_${upgrade.name}`);
         });
     
