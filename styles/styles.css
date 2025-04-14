@@ -127,6 +127,8 @@ button:active {
     font-family: "Poppins", sans-serif; 
     font-weight: 400; 
 }
+span.upgrade-name{
+    pointer-events: none;
 }
 
 #upgradesList button:hover {
