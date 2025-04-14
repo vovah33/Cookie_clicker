@@ -314,4 +314,8 @@ input:checked + .slider:before {
     top: 5%; 
     right: 8%;
     transform: translateY(-50%);
+
+}
+span.upgrade-name{
+    pointer-events: none;
 }
