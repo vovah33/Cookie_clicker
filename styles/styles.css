@@ -5,7 +5,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-
 }
 
 h1, h2, h3 {
@@ -127,7 +126,7 @@ button:active {
     font-family: "Poppins", sans-serif; 
     font-weight: 400; 
 }
-}
+
 
 #upgradesList button:hover {
     background-color: #f0f0f0;

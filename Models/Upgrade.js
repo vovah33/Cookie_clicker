@@ -29,7 +29,7 @@ export const upgrades = [
     new Upgrade("Stronger Click", 100, "+1 per click", (game) => {
         const originalClick = game.clickEnergy.bind(game);
         game.clickEnergy = () => {
-            game.energy_score += 2; // base 1 + 1
+            game.energy_score += 2;
             game.updateEnergyCount();
             game.updateUI();
         };
@@ -50,7 +50,7 @@ export const upgrades = [
     new Upgrade("Double Tap", 5000, "Double click energy", (game) => {
         const originalClick = game.clickEnergy.bind(game);
         game.clickEnergy = () => {
-            game.energy_score += 2; // double
+            game.energy_score += 2;
             game.updateEnergyCount();
             game.updateUI();
         };
