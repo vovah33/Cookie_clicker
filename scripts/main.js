@@ -58,37 +58,37 @@ class Game {
     }
     
     reset() {
-        // Reset basic game values
+
         this.energy_score = 0;
         this.energyPS = 0;
-        this.clickPower = 1; // Reset clickPower to default value
+        this.clickPower = 1;
         
-        // Save clickPower to localStorage
+
         localStorage.setItem('clickPower', this.clickPower);
 
-        // Reset auto clickers
+
         this.autoClickers.forEach(clicker => {
             clicker.amount = 0;
             clicker.currentPrice = clicker.basePrice;
             clicker.save();
         });
     
-        // Reset upgrades
+
         this.upgrades.forEach((upgrade, index) => {
             upgrade.purchased = false;
             const button = document.getElementById(`upgrade${index}`);
             if (button) {
-                button.disabled = false; // Enable the button
+                button.disabled = false;
                 button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
             }
             localStorage.removeItem(`upgrade_${upgrade.name}`);
         });
     
-        // Save updated values to localStorage
+
         localStorage.setItem('energyCount', this.energy_score.toFixed(1));
         localStorage.setItem('energyPS', this.energyPS.toFixed(1));
         
-        // Update UI
+
         this.updateUI();
     }
 
@@ -157,7 +157,7 @@ class Game {
                     <span class="upgrade-name">${upgrade.name}</span>
                     <span class="upgrade-cost">⚡ ${upgrade.basePrice}</span>
                 `;
-                button.disabled = upgrade.purchased; // Disable button if already purchased
+                button.disabled = upgrade.purchased;
             }
         });
     }
