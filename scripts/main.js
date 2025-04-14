@@ -5,7 +5,8 @@ class Game {
     constructor() {
         this.energy_score = parseFloat(localStorage.getItem('energyCount')) || 0;
         this.energyPS = parseFloat(localStorage.getItem('energyPS')) || 0;
-        this.autoClickers =parseFloat(localStorage.getItem('autoClickers')) || 0;
+        this.clickPower = parseFloat(localStorage.getItem('clickPower')) || 1;
+        this.autoClickers = parseFloat(localStorage.getItem('autoClickers')) || 0;
         this.init();
     }
 
@@ -26,7 +27,6 @@ class Game {
                 };
             }
         });
-
 
         this.upgrades = upgrades.map(upgrade => {
             const copy = upgrade.copy();
@@ -58,18 +58,22 @@ class Game {
     }
     
     reset() {
-
+        // Reset basic game values
         this.energy_score = 0;
         this.energyPS = 0;
-    
+        this.clickPower = 1; // Reset clickPower to default value
+        
+        // Save clickPower to localStorage
+        localStorage.setItem('clickPower', this.clickPower);
 
+        // Reset auto clickers
         this.autoClickers.forEach(clicker => {
             clicker.amount = 0;
             clicker.currentPrice = clicker.basePrice;
             clicker.save();
         });
     
-
+        // Reset upgrades
         this.upgrades.forEach((upgrade, index) => {
             upgrade.purchased = false;
             const button = document.getElementById(`upgrade${index}`);
@@ -80,30 +84,16 @@ class Game {
             localStorage.removeItem(`upgrade_${upgrade.name}`);
         });
     
-
+        // Save updated values to localStorage
         localStorage.setItem('energyCount', this.energy_score.toFixed(1));
         localStorage.setItem('energyPS', this.energyPS.toFixed(1));
-        this.autoClickers.forEach(clicker => {
-            localStorage.setItem(`clicker_${clicker.name}_quantity`, clicker.amount);
-            localStorage.setItem(`clicker_${clicker.name}_price`, clicker.currentPrice);
-        });
-    
-
-        this.upgrades.forEach((upgrade, index) => {
-            const button = document.getElementById(`upgrade${index}`);
-            if (button) {
-                button.disabled = false;
-                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
-            }
-        });
-
+        
+        // Update UI
         this.updateUI();
     }
-    
-    
 
     clickEnergy() {
-        this.energy_score++;
+        this.energy_score += this.clickPower;
         this.updateEnergyCount();
         this.updateUI();
     }
@@ -210,8 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     new Effects();
 });
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById('darkModeToggle');

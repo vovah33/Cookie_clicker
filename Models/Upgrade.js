@@ -6,53 +6,43 @@ export class Upgrade {
         this.effect = effect;
         this.applyEffect = applyEffect;
     }
-
+    
     buy(game) {
         if (!this.purchased && game.energy_score >= this.basePrice) {
             game.energy_score -= this.basePrice;
             this.purchased = true;
             this.applyEffect(game);
-            localStorage.setItem(`upgrade_${this.name}`, "true"); 
+            localStorage.setItem(`upgrade_${this.name}`, "true");
+            
             game.updateUI();
         }
     }
     
-    
-
     copy() {
         return new Upgrade(this.name, this.basePrice, this.effect, this.applyEffect);
     }
 }
 
-
 export const upgrades = [
     new Upgrade("Stronger Click", 100, "+1 per click", (game) => {
-        const originalClick = game.clickEnergy.bind(game);
-        game.clickEnergy = () => {
-            game.energy_score += 2;
-            game.updateEnergyCount();
-            game.updateUI();
-        };
+        game.clickPower += 1;
+        localStorage.setItem('clickPower', game.clickPower);
     }),
-
+    
     new Upgrade("Efficient Clickers", 500, "+50% EPS", (game) => {
         game.energyPS *= 1.5;
     }),
-
+    
     new Upgrade("Auto Click Boost", 1000, "+1 EPS", (game) => {
         game.energyPS += 1;
     }),
-
+    
     new Upgrade("Battery Pack", 2000, "+10% EPS", (game) => {
         game.energyPS *= 1.1;
     }),
-
+    
     new Upgrade("Double Tap", 5000, "Double click energy", (game) => {
-        const originalClick = game.clickEnergy.bind(game);
-        game.clickEnergy = () => {
-            game.energy_score += 2;
-            game.updateEnergyCount();
-            game.updateUI();
-        };
+        game.clickPower *= 2;
+        localStorage.setItem('clickPower', game.clickPower);
     }),
 ];
