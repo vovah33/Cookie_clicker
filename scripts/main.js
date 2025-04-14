@@ -65,12 +65,17 @@ class Game {
 
         this.autoClickers.forEach(clicker => {
             clicker.amount = 0;
+<<<<<<< HEAD
             clicker.currentPrice = clicker.basePrice;  // Reset price
+=======
+            clicker.currentPrice = clicker.basePrice;
+>>>>>>> origin/main
             clicker.save();
         });
     
 
         this.upgrades.forEach((upgrade, index) => {
+<<<<<<< HEAD
             upgrade.purchased = false;  
             const button = document.getElementById(`upgrade${index}`);
             if (button) {
@@ -78,6 +83,14 @@ class Game {
                 button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;  // Reset button text
             }
             // Clear upgrade purchase
+=======
+            upgrade.purchased = false;
+            const button = document.getElementById(`upgrade${index}`);
+            if (button) {
+                button.disabled = false; // Enable the button
+                button.innerText = `${upgrade.name} (⚡ ${upgrade.basePrice})`;
+            }
+>>>>>>> origin/main
             localStorage.removeItem(`upgrade_${upgrade.name}`);
         });
     
